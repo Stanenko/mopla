@@ -513,13 +513,35 @@ html, body {
     <script>
         
         // Функция для обновления отсчета валидности
-        function updateValidityCountdown() {
-            // Получаем текущее время в Германии (Europe/Berlin)
-            const germanTime = new Date(new Date().toLocaleString('de-DE', { timeZone: 'Europe/Berlin' }));
+               function updateValidityCountdown() {
+            // Получаем текущее время
+            const now = new Date();
+            
+            // Преобразуем в строку в формате немецкой временной зоны
+            const formatter = new Intl.DateTimeFormat('de-DE', {
+                year: 'numeric',
+                month: '2-digit',
+                day: '2-digit',
+                hour: '2-digit',
+                minute: '2-digit',
+                second: '2-digit',
+                hour12: false,
+                timeZone: 'Europe/Berlin'
+            });
+            
+            const parts = formatter.formatToParts(now);
+            const year = parseInt(parts.find(p => p.type === 'year').value);
+            const month = parseInt(parts.find(p => p.type === 'month').value);
+            const day = parseInt(parts.find(p => p.type === 'day').value);
+            const hour = parseInt(parts.find(p => p.type === 'hour').value);
+            const minute = parseInt(parts.find(p => p.type === 'minute').value);
+            const second = parseInt(parts.find(p => p.type === 'second').value);
+            
+            const germanTime = new Date(year, month - 1, day, hour, minute, second);
             
             // Определяем конец месяца + 1 день + 3 часа
-            // День 2 следующего месяца в 03:00
-            const endOfMonth = new Date(germanTime.getFullYear(), germanTime.getMonth() + 1, 2, 3, 0, 0);
+            // День 1 следующего месяца в 03:00
+            const endOfMonth = new Date(germanTime.getFullYear(), germanTime.getMonth() + 1, 1, 3, 0, 0);
             
             // Рассчитываем разницу в миллисекундах
             const diff = endOfMonth - germanTime;
