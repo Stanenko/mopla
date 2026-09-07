@@ -506,5 +506,15 @@
 
         <div class="footer-space"></div>
     </div>
+
+    <script>
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('./service-worker.js').then((registration) => {
+                console.log('Service Worker зарегистрирован:', registration);
+            }).catch((error) => {
+                console.log('Ошибка регистрации Service Worker:', error);
+            });
+        }
+    </script>
 </body>
 </html>
