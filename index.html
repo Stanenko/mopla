@@ -420,7 +420,7 @@ html, body {
 
                 <div class="ticket-validity">
                     <div class="ticket-validity-label">Validity</div>
-                    <div class="ticket-validity-dates">01.09.2026 - 30.09.2026</div>
+                   <div class="ticket-validity-dates" id="validity-dates">01.09.2026 - 30.09.2026</div>
                     <div class="ticket-validity-time" id="validity-countdown">still valid for 23 days, 08:15:35</div>
                 </div>
 
@@ -511,7 +511,45 @@ html, body {
     </div>
 
     <script>
-        
+                // Функция для обновления дат валидности
+        function updateValidityDates() {
+            const now = new Date();
+            
+            // Преобразуем в строку в формате немецкой временной зоны
+            const formatter = new Intl.DateTimeFormat('de-DE', {
+                year: 'numeric',
+                month: '2-digit',
+                day: '2-digit',
+                hour: '2-digit',
+                minute: '2-digit',
+                second: '2-digit',
+                hour12: false,
+                timeZone: 'Europe/Berlin'
+            });
+            
+            const parts = formatter.formatToParts(now);
+            const year = parseInt(parts.find(p => p.type === 'year').value);
+            const month = parseInt(parts.find(p => p.type === 'month').value);
+            const day = parseInt(parts.find(p => p.type === 'day').value);
+            
+            const germanTime = new Date(year, month - 1, day);
+            
+            // Первый день текущего месяца
+            const firstDay = new Date(germanTime.getFullYear(), germanTime.getMonth(), 1);
+            
+            // Последний день текущего месяца
+            const lastDay = new Date(germanTime.getFullYear(), germanTime.getMonth() + 1, 0);
+            
+            // Форматируем даты
+            const startDate = `${String(firstDay.getDate()).padStart(2, '0')}.${String(firstDay.getMonth() + 1).padStart(2, '0')}.${firstDay.getFullYear()}`;
+            const endDate = `${String(lastDay.getDate()).padStart(2, '0')}.${String(lastDay.getMonth() + 1).padStart(2, '0')}.${lastDay.getFullYear()}`;
+            
+            // Обновляем HTML
+            const element = document.getElementById('validity-dates');
+            if (element) {
+                element.textContent = `${startDate} - ${endDate}`;
+            }
+        }
         // Функция для обновления отсчета валидности
                function updateValidityCountdown() {
             // Получаем текущее время
@@ -566,6 +604,7 @@ html, body {
 
         // Когда DOM полностью загружен, запускаем функцию
         document.addEventListener('DOMContentLoaded', function() {
+            updateValidityDates();
             updateValidityCountdown();
             setInterval(updateValidityCountdown, 1000);
         });
