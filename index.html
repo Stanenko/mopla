@@ -1,0 +1,560 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Deutschlandticket</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', sans-serif;
+            background: #f5f5f7;
+            color: #333;
+        }
+
+        .container {
+            max-width: 500px;
+            margin: 0 auto;
+            background: white;
+            min-height: 100vh;
+        }
+
+        /* HEADER */
+        .header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 16px 20px;
+            background: white;
+            border-bottom: 1px solid #e5e5ea;
+        }
+
+        .header-back {
+            font-size: 24px;
+            color: #0f1a5b;
+            cursor: pointer;
+            width: 30px;
+        }
+
+        .header-title {
+            flex: 1;
+            text-align: center;
+            font-size: 18px;
+            font-weight: 600;
+            color: #0f1a5b;
+        }
+
+        .header-info {
+            font-size: 24px;
+            color: #0f1a5b;
+            width: 30px;
+            text-align: right;
+        }
+
+        /* TICKET CARD */
+        .ticket-card {
+            margin: 20px;
+            border-radius: 12px;
+            border: 1px solid #e5e5ea;
+            overflow: hidden;
+            background: #ffffff;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+        }
+
+        .ticket-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 16px 20px;
+            background: white;
+        }
+
+        .ticket-logo {
+            font-size: 24px;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 0;
+        }
+
+        .logo-mo {
+            color: #9c62aa;
+        }
+
+        .logo-location {
+            width: 20px;
+            height: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 -4px;
+        }
+
+        .logo-pla {
+            color: #0f1a5b;
+        }
+
+        .ticket-logo-text {
+            font-size: 11px;
+            color: #9c62aa;
+            font-weight: 500;
+        }
+
+        .ticket-price {
+            text-align: right;
+            font-size: 18px;
+            font-weight: 600;
+            color: #0f1a5b;
+        }
+
+        .ticket-price-vat {
+            font-size: 12px;
+            color: #686f7a;
+            font-weight: 400;
+        }
+
+        .ticket-divider {
+            position: relative;
+            height: 16px;
+            border-top: 1px dashed #d0d0d0;
+            margin: 0 20px;
+        }
+
+        .ticket-divider::before {
+            content: '';
+            position: absolute;
+            left: -20px;
+            top: -8px;
+            width: 16px;
+            height: 16px;
+            background: #f5f5f7;
+            border-radius: 50%;
+        }
+
+        .ticket-divider::after {
+            content: '';
+            position: absolute;
+            right: -20px;
+            top: -8px;
+            width: 16px;
+            height: 16px;
+            background: #f5f5f7;
+            border-radius: 50%;
+        }
+
+        .ticket-content {
+            padding: 20px;
+            position: relative;
+        }
+
+        .ticket-name-section {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 16px;
+        }
+
+        .ticket-name {
+            font-size: 20px;
+            font-weight: 600;
+            color: #0f1a5b;
+            margin: 0;
+        }
+
+        .ticket-status {
+            display: inline-block;
+            background: #70db8b;
+            color: #0f1a5b;
+            padding: 4px 12px;
+            border-radius: 16px;
+            font-size: 12px;
+            font-weight: 600;
+            margin: 0;
+            white-space: nowrap;
+        }
+
+        .ticket-validity {
+            margin-bottom: 16px;
+        }
+
+        .ticket-validity-label {
+            font-size: 12px;
+            color: #686f7a;
+            margin-bottom: 4px;
+        }
+
+        .ticket-validity-dates {
+            font-size: 14px;
+            color: #0f1a5b;
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+
+        .ticket-validity-time {
+            font-size: 12px;
+            color: #686f7a;
+        }
+
+        .qr-code {
+            width: 100%;
+            height: 200px;
+            background: #f9f9f9;
+            border-radius: 8px;
+            margin: 16px 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        .qr-code img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+
+        .ticket-id {
+            font-size: 12px;
+            color: #686f7a;
+            margin-bottom: 4px;
+        }
+
+        .ticket-id-value {
+            font-size: 14px;
+            color: #0f1a5b;
+            font-weight: 600;
+            margin-bottom: 16px;
+        }
+
+        .dticket-logo {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            font-size: 11px;
+            color: #0f1a5b;
+        }
+
+        /* APPLE WALLET BUTTON */
+        .apple-wallet-btn {
+            background: #000;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            padding: 12px 20px;
+            font-size: 14px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            width: 100%;
+            cursor: pointer;
+            margin-top: 16px;
+            transition: background 0.3s;
+        }
+
+        .apple-wallet-btn:hover {
+            background: #1a1a1a;
+        }
+
+        .wallet-icon {
+            width: 16px;
+            height: 16px;
+        }
+
+        /* CONDITIONS */
+        .conditions {
+            padding: 20px;
+            border-top: 1px solid #e5e5ea;
+        }
+
+        .conditions-title {
+            font-size: 12px;
+            color: #686f7a;
+            margin-bottom: 8px;
+        }
+
+        .conditions-text {
+            font-size: 13px;
+            color: #0f1a5b;
+            line-height: 1.5;
+            margin-bottom: 16px;
+        }
+
+        .control-medium-title {
+            font-size: 12px;
+            color: #686f7a;
+            margin-top: 16px;
+            margin-bottom: 4px;
+        }
+
+        .control-medium-text {
+            font-size: 13px;
+            color: #0f1a5b;
+            margin-bottom: 16px;
+        }
+
+        .distributed-by {
+            font-size: 12px;
+            color: #686f7a;
+            margin-top: 16px;
+            margin-bottom: 4px;
+        }
+
+        .distributed-by-text {
+            font-size: 13px;
+            color: #0f1a5b;
+        }
+
+        /* MORE OPTIONS */
+        .more-options {
+            padding: 20px;
+        }
+
+        .more-options-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: #0f1a5b;
+            margin-bottom: 16px;
+        }
+
+        .option-button {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 16px 20px;
+            background: white;
+            border: 1px solid #e5e5ea;
+            border-radius: 12px;
+            margin-bottom: 12px;
+            cursor: pointer;
+            transition: background 0.3s;
+            text-decoration: none;
+            color: inherit;
+            width: 100%;
+        }
+
+        .option-button:hover {
+            background: #f9f9f9;
+        }
+
+        .option-button-text {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 16px;
+            color: #0f1a5b;
+            font-weight: 500;
+        }
+
+        .option-icon {
+            font-size: 20px;
+            width: 24px;
+        }
+
+        .option-arrow {
+            color: #686f7a;
+            font-size: 18px;
+        }
+
+        /* Footer spacing */
+        .footer-space {
+            height: 40px;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- HEADER -->
+        <div class="header">
+            <div class="header-back">‹</div>
+            <div class="header-title">Your Deutschlandticket</div>
+            <div class="header-info">ⓘ</div>
+        </div>
+
+        <!-- TICKET CARD -->
+        <div class="ticket-card">
+            <!-- Ticket Header -->
+            <div class="ticket-header">
+                <div>
+                    <div class="ticket-logo">
+                        <span class="logo-mo">m</span>
+                        <div class="logo-location">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z" fill="#9c62aa"/>
+                            </svg>
+                        </div>
+                        <span class="logo-pla">pla</span>
+                    </div>
+                    <div class="ticket-logo-text">ticketing</div>
+                </div>
+                <div>
+                    <div class="ticket-price">63€ / Month</div>
+                    <div class="ticket-price-vat">incl. currently valid VAT</div>
+                </div>
+            </div>
+
+            <!-- Divider with holes -->
+            <div class="ticket-divider"></div>
+
+            <!-- Ticket Content -->
+            <div class="ticket-content">
+                <div class="ticket-name-section">
+                    <div class="ticket-name">Yuliia Stanenko</div>
+                    <div class="ticket-status">Active</div>
+                </div>
+
+                <div class="ticket-validity">
+                    <div class="ticket-validity-label">Validity</div>
+                    <div class="ticket-validity-dates">01.09.2026 - 30.09.2026</div>
+                    <div class="ticket-validity-time">still valid for 23 days, 08:15:35</div>
+                </div>
+
+                <!-- QR Code -->
+                <div class="qr-code">
+                    <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg" style="width: 100%; height: 100%;">
+                        <defs>
+                            <pattern id="qr-pattern" patternUnits="userSpaceOnUse" width="2" height="2">
+                                <rect width="1" height="1" fill="black"/>
+                            </pattern>
+                        </defs>
+                        <rect width="200" height="200" fill="white"/>
+                        <rect x="10" y="10" width="50" height="50" fill="black"/>
+                        <rect x="20" y="20" width="30" height="30" fill="white"/>
+                        <rect x="25" y="25" width="20" height="20" fill="black"/>
+                        
+                        <rect x="140" y="10" width="50" height="50" fill="black"/>
+                        <rect x="150" y="20" width="30" height="30" fill="white"/>
+                        <rect x="155" y="25" width="20" height="20" fill="black"/>
+                        
+                        <rect x="10" y="140" width="50" height="50" fill="black"/>
+                        <rect x="20" y="150" width="30" height="30" fill="white"/>
+                        <rect x="25" y="155" width="20" height="20" fill="black"/>
+                        
+                        <rect x="90" y="90" width="20" height="20" fill="black"/>
+                        <rect x="95" y="95" width="10" height="10" fill="white"/>
+                        
+                        <g opacity="0.3">
+                            <circle cx="50" cy="50" r="2" fill="black"/>
+                            <circle cx="70" cy="50" r="2" fill="black"/>
+                            <circle cx="90" cy="50" r="2" fill="black"/>
+                            <circle cx="110" cy="50" r="2" fill="black"/>
+                            <circle cx="130" cy="50" r="2" fill="black"/>
+                            <circle cx="150" cy="50" r="2" fill="black"/>
+                            <circle cx="170" cy="50" r="2" fill="black"/>
+                            
+                            <circle cx="50" cy="70" r="2" fill="black"/>
+                            <circle cx="70" cy="70" r="2" fill="black"/>
+                            <circle cx="90" cy="70" r="2" fill="black"/>
+                            <circle cx="110" cy="70" r="2" fill="black"/>
+                            <circle cx="130" cy="70" r="2" fill="black"/>
+                            <circle cx="150" cy="70" r="2" fill="black"/>
+                            <circle cx="170" cy="70" r="2" fill="black"/>
+                            
+                            <circle cx="50" cy="90" r="2" fill="black"/>
+                            <circle cx="70" cy="90" r="2" fill="black"/>
+                            <circle cx="90" cy="90" r="2" fill="black"/>
+                            <circle cx="110" cy="90" r="2" fill="black"/>
+                            <circle cx="130" cy="90" r="2" fill="black"/>
+                            <circle cx="150" cy="90" r="2" fill="black"/>
+                            <circle cx="170" cy="90" r="2" fill="black"/>
+                            
+                            <circle cx="50" cy="110" r="2" fill="black"/>
+                            <circle cx="70" cy="110" r="2" fill="black"/>
+                            <circle cx="90" cy="110" r="2" fill="black"/>
+                            <circle cx="110" cy="110" r="2" fill="black"/>
+                            <circle cx="130" cy="110" r="2" fill="black"/>
+                            <circle cx="150" cy="110" r="2" fill="black"/>
+                            <circle cx="170" cy="110" r="2" fill="black"/>
+                        </g>
+                    </svg>
+                </div>
+
+                <div class="ticket-id">Ticket-ID</div>
+                <div class="ticket-id-value">07XCP0V7</div>
+
+                <div style="display: flex; justify-content: space-between; align-items: center;">
+                    <div class="dticket-logo">
+                        <span style="color: #e74c3c;">▬</span>
+                        <span style="color: #f39c12;">▬</span>
+                        <span style="color: #3498db;">▬</span>
+                        D-TICKET
+                    </div>
+                </div>
+
+                <button class="apple-wallet-btn">
+                    <span>🎫</span> Add to Apple Wallet
+                </button>
+            </div>
+        </div>
+
+        <!-- CONDITIONS -->
+        <div class="conditions">
+            <div class="conditions-title">Conditions</div>
+            <div class="conditions-text">Valid nationwide on all local trains and participating transport companies plus possible regional surcharges.</div>
+
+            <div class="control-medium-title">Control medium</div>
+            <div class="control-medium-text">Official photo ID</div>
+
+            <div class="distributed-by">Distributed by</div>
+            <div class="distributed-by-text">Vetter GmbH Omnibus und Mietwagenbetrieb</div>
+
+            <div class="distributed-by">Acquired at</div>
+            <div class="distributed-by-text">Vetter GmbH Omnibus-und Mietwagenbetrieb</div>
+        </div>
+
+        <!-- MORE OPTIONS -->
+        <div class="more-options">
+            <div class="more-options-title">More options</div>
+
+            <button class="option-button">
+                <div class="option-button-text">
+                    <span class="option-icon">⟲</span>
+                    <span>Cancel with re-entry</span>
+                </div>
+                <div class="option-arrow">›</div>
+            </button>
+
+            <button class="option-button">
+                <div class="option-button-text">
+                    <span class="option-icon">✎</span>
+                    <span>Edit subscription</span>
+                </div>
+                <div class="option-arrow">›</div>
+            </button>
+
+            <button class="option-button">
+                <div class="option-button-text">
+                    <span class="option-icon">💳</span>
+                    <span>Manage payment method</span>
+                </div>
+                <div class="option-arrow">›</div>
+            </button>
+
+            <button class="option-button">
+                <div class="option-button-text">
+                    <span class="option-icon">📄</span>
+                    <span>Download invoices</span>
+                </div>
+                <div class="option-arrow">›</div>
+            </button>
+
+            <button class="option-button">
+                <div class="option-button-text">
+                    <span class="option-icon">?</span>
+                    <span>Request help</span>
+                </div>
+                <div class="option-arrow">›</div>
+            </button>
+        </div>
+
+        <div class="footer-space"></div>
+    </div>
+</body>
+</html>
