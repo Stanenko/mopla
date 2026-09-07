@@ -511,6 +511,46 @@ html, body {
     </div>
 
     <script>
+           <script>
+        // Функция для обновления отсчета валидности
+        function updateValidityCountdown() {
+            // Получаем текущее время в Германии (Europe/Berlin)
+            const germanTime = new Date(new Date().toLocaleString('de-DE', { timeZone: 'Europe/Berlin' }));
+            
+            // Определяем конец месяца + 1 день + 3 часа
+            // День 2 следующего месяца в 03:00
+            const endOfMonth = new Date(germanTime.getFullYear(), germanTime.getMonth() + 1, 2, 3, 0, 0);
+            
+            // Рассчитываем разницу в миллисекундах
+            const diff = endOfMonth - germanTime;
+            
+            if (diff > 0) {
+                // Конвертируем в дни, часы, минуты, секунды
+                const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+                const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+                const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+                
+                // Форматируем время (часы:минуты:секунды)
+                const timeString = `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
+                
+                // Обновляем HTML
+                const element = document.getElementById('validity-countdown');
+                if (element) {
+                    element.textContent = `still valid for ${days} days, ${timeString}`;
+                }
+            }
+        }
+
+        // Когда DOM полностью загружен, запускаем функцию
+        document.addEventListener('DOMContentLoaded', function() {
+            updateValidityCountdown();
+            setInterval(updateValidityCountdown, 1000);
+        });
+
+        // Для надежности, также запускаем через небольшую задержку
+        setTimeout(updateValidityCountdown, 100);
+
         if ('serviceWorker' in navigator) {
             navigator.serviceWorker.register('./service-worker.js').then((registration) => {
                 console.log('Service Worker зарегистрирован:', registration);
@@ -518,39 +558,7 @@ html, body {
                 console.log('Ошибка регистрации Service Worker:', error);
             });
         }
-
-        // Функция для обновления отсчета валидности
-function updateValidityCountdown() {
-    // Получаем текущее время в Германии (Europe/Berlin)
-    const germanTime = new Date(new Date().toLocaleString('de-DE', { timeZone: 'Europe/Berlin' }));
-    
-    // Определяем конец месяца + 1 день + 3 часа
-    // День 2 следующего месяца в 03:00
-    const endOfMonth = new Date(germanTime.getFullYear(), germanTime.getMonth() + 1, 2, 3, 0, 0);
-    
-    // Рассчитываем разницу в миллисекундах
-    const diff = endOfMonth - germanTime;
-    
-    if (diff > 0) {
-        // Конвертируем в дни, часы, минуты, секунды
-        const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-        const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-        const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
-        const seconds = Math.floor((diff % (1000 * 60)) / 1000);
-        
-        // Форматируем время (часы:минуты:секунды)
-        const timeString = `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
-        
-        // Обновляем HTML
-        document.getElementById('validity-countdown').textContent = `still valid for ${days} days, ${timeString}`;
-    }
-}
-
-// Обновляем отсчет сразу при загрузке
-updateValidityCountdown();
-
-// Обновляем каждую секунду
-setInterval(updateValidityCountdown, 1000);
+    </script>
     </script>
 </body>
 </html>
