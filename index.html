@@ -178,7 +178,7 @@ html, body {
             margin: 0 20px;
         }
 
-                 .ticket-divider::before {
+         .ticket-divider::before {
             content: '';
             position: absolute;
             left: -30px;
@@ -188,7 +188,7 @@ html, body {
             background: #fafafc;
             border-radius: 50%;
             z-index: 1;
-            border: 1px solid #fafafc;
+            box-shadow: inset -1px 0 0 #e5e5ea;   /* левый кружок — дуга справа */
         }
 
         .ticket-divider::after {
@@ -201,7 +201,7 @@ html, body {
             background: #fafafc;
             border-radius: 50%;
             z-index: 1;
-            border: 1px solid #fafafc;
+            box-shadow: inset 1px 0 0 #e5e5ea;    /* правый кружок — дуга слева */
         }
 
         .ticket-content {
