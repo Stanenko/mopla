@@ -67,6 +67,8 @@ html, body {
             color: #0f1a5b;
             cursor: pointer;
             width: 30px;
+            position: relative;
+            top: -2px;
         }
 
         .header-title {
@@ -84,6 +86,20 @@ html, body {
             width: 30px;
             text-align: right;
             font-weight: 900; 
+        }
+
+                .info-circle {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 24px;              /* диаметр кружка — меняй это */
+            height: 24px;             /* = width, чтобы круг был ровный */
+            border: 2px solid #0f1a5b;
+            border-radius: 50%;
+            font-size: 14px;          /* размер буквы i — меняй отдельно */
+            font-style: italic;
+            font-weight: 700;
+            line-height: 1;
         }
 
         /* TICKET CARD */
@@ -429,7 +445,7 @@ html, body {
         <div class="header">
             <div class="header-back">‹</div>
             <div class="header-title">Your Deutschlandticket</div>
-            <div class="header-info">ⓘ</div>
+            <div class="header-info"><span class="info-circle">i</span></div>
         </div>
 
         <!-- TICKET CARD -->
