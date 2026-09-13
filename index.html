@@ -132,13 +132,15 @@ html, body {
 }
 
 @keyframes moveUp {
-    0%, 20%, 60%, 100% { translate: 0 0; }
-    40%                { translate: 0 -5px; }
+    0%, 15%   { translate: 0 0; }
+    40%       { translate: 0 -5px; }   /* вверх */
+    65%       { translate: 0 5px; }    /* вниз на 5px ниже старта */
+    85%, 100% { translate: 0 0; }      /* возврат + пауза */
 }
 
 @keyframes spinY {
-    0%,  30%  { rotate: y 0deg; }
-    50%, 100% { rotate: y 360deg; }
+    0%,  27%  { rotate: y 0deg; }
+    53%, 100% { rotate: y 180deg; }
 }
 
         .logo-pla {
