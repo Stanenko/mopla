@@ -288,11 +288,9 @@ html, body {
         }
 
         .dticket-logo {
-            display: flex;
-            align-items: center;
-            gap: 4px;
-            font-size: 11px;
-            color: #0f1a5b;
+            height: 40px;      /* высота логотипа — регулируй под нужный размер */
+            width: auto;       /* ширина подстроится сама, картинка не исказится */
+            display: block;
         }
 
         /* APPLE WALLET BUTTON */
@@ -477,17 +475,14 @@ html, body {
                    <img src="./qr.jpg" alt="QR Code" style="width: 100%; height: 100%; object-fit: contain;">
                 </div>
 
-                <div class="ticket-id">Ticket-ID</div>
-                <div class="ticket-id-value">07XCP0V7</div>
-
                 <div style="display: flex; justify-content: space-between; align-items: center;">
-                    <div class="dticket-logo">
-                        <span style="color: #e74c3c;">▬</span>
-                        <span style="color: #f39c12;">▬</span>
-                        <span style="color: #3498db;">▬</span>
-                        D-TICKET
+                    <div>
+                        <div class="ticket-id">Ticket-ID</div>
+                        <div class="ticket-id-value" style="margin-bottom: 0;">07XCP0V7</div>
                     </div>
+                    <img src="./d-ticket-logo.png" alt="D-Ticket" class="dticket-logo">
                 </div>
+                
 
                 <button class="apple-wallet-btn">
                     <span>🎫</span> Add to Apple Wallet
