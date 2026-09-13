@@ -176,25 +176,30 @@ html, body {
             margin: 0 20px;
         }
 
-                   .ticket-divider::before,
+               .ticket-divider::before {
+            content: '';
+            position: absolute;
+            left: -28px;
+            top: -8px;
+            width: 16px;
+            height: 16px;
+            background: #fafafc;
+            border-radius: 50%;
+            z-index: 1;
+            border: 1px solid #fafafc;
+        }
+
         .ticket-divider::after {
             content: '';
             position: absolute;
-            top: 50%;                    /* центрируем по линии разделителя */
-            transform: translateY(-50%);
-            width: 18px;
-            height: 18px;
-            background: #fafafc;         /* = цвет фона страницы */
+            right: -28px;
+            top: -8px;
+            width: 16px;
+            height: 16px;
+            background: #fafafc;
             border-radius: 50%;
-            z-index: 2;                  /* поверх рамки билета */
-        }
-
-        .ticket-divider::before {
-            left: -29px;                 /* центр кружка на левой грани билета */
-        }
-
-        .ticket-divider::after {
-            right: -29px;                /* центр кружка на правой грани */
+            z-index: 1;
+            border: 1px solid #fafafc;
         }
 
         .ticket-content {
