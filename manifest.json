@@ -1,0 +1,15 @@
+{
+  "name": "Deutschlandticket",
+  "short_name": "Deutschlandticket",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#fafafc",
+  "theme_color": "#fafafc",
+  "icons": [
+    {
+      "src": "./D-Ticket_Logo.png",
+      "sizes": "350x350",
+      "type": "image/png"
+    }
+  ]
+}
