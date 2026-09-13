@@ -130,19 +130,25 @@ html, body {
 
 @keyframes bounceLocation {
     0% {
-        transform: translateY(0px) rotateY(0deg);
-    }
-    20% {
         transform: translateY(5px) rotateY(0deg);
     }
-    60% {
+    25% {
         transform: translateY(5px) rotateY(0deg);
     }
-    80% {
-        transform: translateY(1px) rotateY(0deg);
+    37.5% {
+        transform: translateY(2.5px) rotateY(0deg);
+    }
+    50% {
+        transform: translateY(0px) rotateY(180deg);
+    }
+    62.5% {
+        transform: translateY(2.5px) rotateY(360deg);
+    }
+    75% {
+        transform: translateY(5px) rotateY(360deg);
     }
     100% {
-        transform: translateY(0px) rotateY(180deg);
+        transform: translateY(5px) rotateY(360deg);
     }
 }
 
