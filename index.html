@@ -113,6 +113,7 @@ html, body {
     align-items: center;
     gap: 0;
     font-family: "GeometrySoftPro-BoldA", sans-serif;
+    perspective: 400px;
 }
         .logo-mo {
             color: #9c62aa;
@@ -125,15 +126,19 @@ html, body {
     align-items: center;
     justify-content: center;
     margin: 0 -4px;
-    animation: bounceLocation 2.4s infinite;
+    animation:
+        moveUp 2.4s infinite ease-in-out,
+        spinY  2.4s infinite ease-in-out;
 }
 
-@keyframes bounceLocation {
-  0%   { transform: translateY(0)      rotateY(0deg); }
-  25%  { transform: translateY(-2.5px) rotateY(0deg); }
-  50%  { transform: translateY(-5px)   rotateY(180deg); }
-  75%  { transform: translateY(-2.5px) rotateY(360deg); }
-  100% { transform: translateY(0)      rotateY(360deg); }
+@keyframes moveUp {
+    0%, 20%, 60%, 100% { translate: 0 0; }
+    40%                { translate: 0 -5px; }
+}
+
+@keyframes spinY {
+    0%,  30%  { rotate: y 0deg; }
+    50%, 100% { rotate: y 360deg; }
 }
 
         .logo-pla {
